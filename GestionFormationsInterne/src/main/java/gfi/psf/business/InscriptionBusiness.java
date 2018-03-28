@@ -2,7 +2,7 @@ package gfi.psf.business;
 
 import java.util.List;
 
-public interface IInscriptionBusiness {
+public interface InscriptionBusiness {
 
 	public void inscrireCollaborateursSessionFormation(
 			Integer idSessionFormation, List<Integer> listIdUtilisateur);

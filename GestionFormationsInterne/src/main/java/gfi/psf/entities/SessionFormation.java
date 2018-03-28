@@ -15,9 +15,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 public class SessionFormation implements Serializable {
+
+	private static final long serialVersionUID = -6104727009777247909L;
 	@Id
 	@GeneratedValue
 	private Integer idSession;
@@ -26,17 +27,17 @@ public class SessionFormation implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dateFin;
 	private int nbrPlaces;
-	@Column(length=120)
+	@Column(length = 120)
 	private String lieu;
 	@ManyToOne
-	@JoinColumn(name="id_formation")
+	@JoinColumn(name = "id_formation")
 	private Formation formation;
-	@OneToMany(mappedBy="sessionFormation")
+	@OneToMany(mappedBy = "sessionFormation")
 	public Collection<Inscription> inscriptions;
 	@OneToOne
-	@JoinColumn(name="id_formateur")
+	@JoinColumn(name = "id_formateur")
 	public Utilisateur formateur;
-	
+
 	public Integer getIdSession() {
 		return idSession;
 	}
@@ -106,8 +107,7 @@ public class SessionFormation implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SessionFormation(Date dateDebut, Date dateFin, int nbrPlaces,
-			String lieu) {
+	public SessionFormation(Date dateDebut, Date dateFin, int nbrPlaces, String lieu) {
 		super();
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
@@ -115,18 +115,10 @@ public class SessionFormation implements Serializable {
 		this.lieu = lieu;
 	}
 
-//	public SessionFormation(Integer idSession) {
-//		super();
-//		this.idSession = idSession;
-//	}
-
 	@Override
 	public String toString() {
-		return "SessionFormation [idSession=" + idSession + ", dateDebut="
-				+ dateDebut + ", dateFin=" + dateFin + ", nbrPlaces="
-				+ nbrPlaces + ", lieu=" + lieu + ", formation=" + formation
-				+ ", inscriptions=" + inscriptions + ", formateur=" + formateur
-				+ "]";
+		return "SessionFormation [idSession=" + idSession + ", dateDebut=" + dateDebut
+				+ ", dateFin=" + dateFin + ", nbrPlaces=" + nbrPlaces + ", lieu=" + lieu + "]";
 	}
 
 }

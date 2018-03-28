@@ -12,7 +12,7 @@ import gfi.psf.entities.Utilisateur;
 
 @Service
 @Transactional
-public class SessionFormationBusinessImpl implements ISessionFormationBusiness {
+public class SessionFormationBusinessImpl implements SessionFormationBusiness {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(SessionFormationBusinessImpl.class);

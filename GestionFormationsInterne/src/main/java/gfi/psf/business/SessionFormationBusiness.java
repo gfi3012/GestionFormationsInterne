@@ -2,7 +2,7 @@ package gfi.psf.business;
 
 import gfi.psf.entities.SessionFormation;
 
-public interface ISessionFormationBusiness {
+public interface SessionFormationBusiness {
 
 	public void creerSessionFormation(SessionFormation sessionFormation);
 

@@ -11,7 +11,7 @@ import gfi.psf.entities.Inscription;
 
 @Service
 @Transactional
-public class UtilisateurBusinessImpl implements IUtilisateurBusiness {
+public class UtilisateurBusinessImpl implements UtilisateurBusiness {
 
 	private static final Logger logger = LoggerFactory.getLogger(UtilisateurBusinessImpl.class);
 

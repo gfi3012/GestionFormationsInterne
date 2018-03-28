@@ -1,4 +1,4 @@
-package gfi.psf;
+package gfi.psf.business;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import gfi.psf.dao.FormationRepository;
 import gfi.psf.entities.Formation;
-import gfi.psf.business.IFormationBusiness;
+import gfi.psf.business.FormationBusiness;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,21 +20,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class FormationBusinessTest {
 
 	@Autowired
-	private IFormationBusiness formationBusiness;
+	private FormationBusiness formationBusiness;
 	@Autowired
 	private FormationRepository formationRepository;
 
-//	@Test
-//	public void testCreerFormation() {
-//		List<Formation> listFormations1 = formationRepository.getFormations();
-//		formationBusiness.creerFormation(new Formation("nom35", "domaine35",
-//				"objectif35", 3500));
-//		formationBusiness.creerFormation(new Formation("nom356", "domaine356",
-//				"objectif356", 35600));
-//		List<Formation> listFormations2 = formationRepository.getFormations();
-//		assertTrue(listFormations1.size() + 2 == listFormations2.size());
-//	}
-//	
+	@Test
+	public void testCreerFormation() {
+		List<Formation> listFormations1 = formationRepository.getFormations();
+		formationBusiness.creerFormation(new Formation("nom35", "domaine35", "objectif35", 3500));
+		formationBusiness
+				.creerFormation(new Formation("nom356", "domaine356", "objectif356", 35600));
+		List<Formation> listFormations2 = formationRepository.getFormations();
+		assertTrue(listFormations1.size() + 2 == listFormations2.size());
+	}
+
 	@Test
 	public void testConsulterFormations() {
 		List<Formation> formations = formationBusiness.consulterFormations();

@@ -12,32 +12,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 public class Utilisateur implements Serializable {
+
+	private static final long serialVersionUID = 7914924840047348888L;
 	@Id
 	@GeneratedValue
 	private Integer idUtilisateur;
-	@Column(length=30)
+	@Column(length = 30)
 	private String cin;
-	@Column(length=30)
+	@Column(length = 30)
 	private String nom;
-	@Column(length=30)
+	@Column(length = 30)
 	private String prenom;
-	@Column(length=30)
+	@Column(length = 30)
 	private String email;
 	@Temporal(TemporalType.DATE)
 	private Date dateDeNaissance;
 	@Temporal(TemporalType.DATE)
 	private Date dateEntree;
-	@Column(length=30)
+	@Column(length = 30)
 	private String identifiant;
-	@Column(length=30)
+	@Column(length = 30)
 	private String motDePasse;
 	private boolean active;
-	@OneToMany(mappedBy="utilisateur")
+	@OneToMany(mappedBy = "utilisateur")
 	private Collection<Inscription> inscriptions;
-	
+
 	public Integer getIdUtilisateur() {
 		return idUtilisateur;
 	}
@@ -135,6 +136,5 @@ public class Utilisateur implements Serializable {
 		super();
 		this.idUtilisateur = idUtilisateur;
 	}
-
 
 }

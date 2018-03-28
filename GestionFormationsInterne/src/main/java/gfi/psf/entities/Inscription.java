@@ -8,21 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @Entity
 public class Inscription implements Serializable {
+
+	private static final long serialVersionUID = 4199043674131127074L;
 	@Id
 	@GeneratedValue
 	private Integer idInscription;
 	private int codeInscription;
 	private String motifDuRefus;
 	@ManyToOne
-	@JoinColumn(name="id_session_formation")
+	@JoinColumn(name = "id_session_formation")
 	private SessionFormation sessionFormation;
 	@ManyToOne
-	@JoinColumn(name="id_utilisateur")
+	@JoinColumn(name = "id_utilisateur")
 	public Utilisateur utilisateur;
-	
+
 	public Integer getIdInscription() {
 		return idInscription;
 	}
@@ -60,10 +61,8 @@ public class Inscription implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-	public Inscription(int codeInscription, String motifDuRefus,
-			SessionFormation sessionFormation, Utilisateur utilisateur) {
+	public Inscription(int codeInscription, String motifDuRefus, SessionFormation sessionFormation,
+			Utilisateur utilisateur) {
 		super();
 		this.codeInscription = codeInscription;
 		this.motifDuRefus = motifDuRefus;
@@ -79,8 +78,11 @@ public class Inscription implements Serializable {
 		this.motifDuRefus = motifDuRefus;
 	}
 
-	
-
-	
+	@Override
+	public String toString() {
+		return "Inscription [idInscription=" + idInscription + ", codeInscription="
+				+ codeInscription + ", motifDuRefus=" + motifDuRefus + ", idSessionFormation="
+				+ sessionFormation.getIdSession() + ", idUtilisateur=" + utilisateur.getIdUtilisateur() + "]";
+	}
 
 }

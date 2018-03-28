@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class InscriptionBusinessImpl implements IInscriptionBusiness {
+public class InscriptionBusinessImpl implements InscriptionBusiness {
 
 	private static final Logger logger = LoggerFactory.getLogger(InscriptionBusinessImpl.class);
 
@@ -43,10 +43,10 @@ public class InscriptionBusinessImpl implements IInscriptionBusiness {
 		// logger.info(listIdUtilisateur.size() + " Collaborateurs invited");
 	}
 
-	private void envoyerEmailCollaborateur(SessionFormation sessionFormation, Integer idUtilisateur) {
-		// Utilisateur utilisateur =
-		// utilisateurRepository.findOne(idUtilisateur);
-	}
+//	private void envoyerEmailCollaborateur(SessionFormation sessionFormation, Integer idUtilisateur) {
+//		 Utilisateur utilisateur =
+//		 utilisateurRepository.findOne(idUtilisateur);
+//	}
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {
 		inscriptionRepository.deleteInscriptionsCollaborateurs(idSessionFormation);

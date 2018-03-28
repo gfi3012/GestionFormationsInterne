@@ -12,16 +12,17 @@ import javax.persistence.OneToMany;
 @Entity
 public class Formation implements Serializable {
 
+	private static final long serialVersionUID = 8893944213339743866L;
 	@Id
 	@GeneratedValue
 	private Integer idFormation;
-	@Column(length=40)
+	@Column(length = 40)
 	private String nom;
-	@Column(length=80)
+	@Column(length = 80)
 	private String domaine;
 	private String objectif;
 	private double budget;
-	@OneToMany(mappedBy="formation")
+	@OneToMany(mappedBy = "formation")
 	private Collection<SessionFormation> sessionFormations;
 
 	public Integer getIdFormation() {
@@ -77,7 +78,6 @@ public class Formation implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public Formation(String nom, String domaine, String objectif, double budget) {
 		super();
 		this.nom = nom;
@@ -88,17 +88,8 @@ public class Formation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Formation [idFormation=" + idFormation + ", nom=" + nom
-				+ ", domaine=" + domaine + ", objectif=" + objectif
-				+ ", budget=" + budget + "]";
+		return "Formation [idFormation=" + idFormation + ", nom=" + nom + ", domaine=" + domaine
+				+ ", objectif=" + objectif + ", budget=" + budget + "]";
 	}
-
-//	@Override
-//	public String toString() {
-//		return "Formation [idFormation=" + idFormation + ", nom=" + nom
-//				+ ", domaine=" + domaine + ", objectif=" + objectif
-//				+ ", budget=" + budget + ", sessionFormations="
-//				+ sessionFormations + "]";
-//	}
 
 }

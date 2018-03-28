@@ -1,4 +1,4 @@
-package gfi.psf;
+package gfi.psf.business;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import gfi.psf.business.IInscriptionBusiness;
+import gfi.psf.business.InscriptionBusiness;
 import gfi.psf.dao.InscriptionRepository;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class InscriptionBusinessTest {
 
 	@Autowired
-	private IInscriptionBusiness inscriptionBusiness;
+	private InscriptionBusiness inscriptionBusiness;
 	@Autowired
 	private InscriptionRepository inscriptionRepository;
 	@Autowired

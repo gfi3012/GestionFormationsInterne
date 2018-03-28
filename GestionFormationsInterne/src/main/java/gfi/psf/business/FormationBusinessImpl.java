@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class FormationBusinessImpl implements IFormationBusiness {
+public class FormationBusinessImpl implements FormationBusiness {
 
 	private static final Logger logger = LoggerFactory.getLogger(FormationBusinessImpl.class);
 

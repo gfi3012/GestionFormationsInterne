@@ -1,6 +1,6 @@
-package gfi.psf;
+package gfi.psf.business;
 
-import gfi.psf.business.IUtilisateurBusiness;
+import gfi.psf.business.UtilisateurBusiness;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,15 +12,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class UtilisateurBusinessTest {
 	@Autowired
-	private IUtilisateurBusiness utilisateurBusiness;
-	
+	private UtilisateurBusiness utilisateurBusiness;
+
 	@Test
-	public void testConfirmerInscriptionSessionFormation(){
-		
+	public void testConfirmerInscriptionSessionFormation() {
+
 	}
-	
+
 	@Test
-	public void testRefuserInscriptionSessionFormation(){
-		
+	public void testRefuserInscriptionSessionFormation() {
+
 	}
 }
