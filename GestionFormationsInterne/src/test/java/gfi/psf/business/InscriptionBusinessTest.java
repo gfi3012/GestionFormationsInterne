@@ -54,8 +54,11 @@ public class InscriptionBusinessTest {
 		assertTrue(inscription.getCodeInscription() == 1);
 	}
 
-	// @Test
-	// public void testSupprimerCollaborateursNonFormes(){
-	//
-	// }
+	 @Test
+	 public void testSupprimerCollaborateursNonFormes(){
+		List<Inscription> listInscriptions1 = inscriptionRepository.findAll();
+		inscriptionBusiness.supprimerCollaborateursNonFormes(2);
+		List<Inscription> listInscriptions2 = inscriptionRepository.findAll();
+		assertTrue(listInscriptions1.size() - 2 == listInscriptions2.size());
+	 }
 }
