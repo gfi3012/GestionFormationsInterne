@@ -1,7 +1,7 @@
 package gfi.psf.business;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import gfi.psf.dao.FormationRepository;
 import gfi.psf.entities.Formation;
 import gfi.psf.business.FormationBusiness;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +25,23 @@ public class FormationBusinessTest {
 	@Autowired
 	private FormationRepository formationRepository;
 
-	@Test
+	@Ignore
 	public void testCreerFormation() {
-		List<Formation> listFormations1 = formationRepository.getFormations();
-		formationBusiness.creerFormation(new Formation("nom35", "domaine35", "objectif35", 3500));
+		List<Formation> listFormations1 = formationRepository.findAllFormations();
+		formationBusiness.creerFormation(new Formation("nomC", "domaineC", "objectifC", 5000));
 		formationBusiness
-				.creerFormation(new Formation("nom356", "domaine356", "objectif356", 35600));
-		List<Formation> listFormations2 = formationRepository.getFormations();
-		assertTrue(listFormations1.size() + 2 == listFormations2.size());
+				.creerFormation(new Formation("nomA", "domaineA", "objectifA", 6000));
+		formationBusiness.creerFormation(new Formation("nomB", "domaineB", "objectifB", 35000));
+		List<Formation> listFormations2 = formationRepository.findAllFormations();
+		assertEquals(listFormations1.size() + 3, listFormations2.size());
 	}
 
+//	@Ignore
 	@Test
-	public void testConsulterFormations() {
-		List<Formation> formations = formationBusiness.consulterFormations();
+	public void testListerFormations() {
+		List<Formation> formations = formationBusiness.listerFormations();
 		assertNotNull(formations);
-		for (Formation formation : formations) {
-			System.out.println(formation);
-		}
+		assertEquals(3, formations.size());
 	}
 
 }

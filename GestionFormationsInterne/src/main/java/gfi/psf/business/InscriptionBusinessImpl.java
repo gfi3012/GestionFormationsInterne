@@ -27,26 +27,47 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 	private SessionFormationRepository sessionFormationRepository;
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
+	@Autowired
+	public EmailService emailService;
 
 	public void inscrireCollaborateursSessionFormation(Integer idSessionFormation,
 			List<Integer> listIdUtilisateur) {
 		// 1 : inviter | 2 : confirmer | 3 : refuser
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(idSessionFormation);
 		for (Integer idUtilisateur : listIdUtilisateur) {
-			inscriptionRepository.save(new Inscription(1, "", sessionFormation, new Utilisateur(
+			inscriptionRepository.save(new Inscription(1, sessionFormation, new Utilisateur(
 					idUtilisateur)));
 		}
 		logger.info(listIdUtilisateur.size() + " Collaborateurs saved in Inscription");
-		// for (Integer idUtilisateur : listIdUtilisateur) {
-		// envoyerEmailCollaborateur(sessionFormation,idUtilisateur);
-		// }
-		// logger.info(listIdUtilisateur.size() + " Collaborateurs invited");
+		for (Integer idUtilisateur : listIdUtilisateur) {
+			envoyerEmailCollaborateur(sessionFormation, idUtilisateur);
+		}
+		logger.info(listIdUtilisateur.size() + " Collaborateurs invited");
 	}
 
-//	private void envoyerEmailCollaborateur(SessionFormation sessionFormation, Integer idUtilisateur) {
-//		 Utilisateur utilisateur =
-//		 utilisateurRepository.findOne(idUtilisateur);
-//	}
+	private void envoyerEmailCollaborateur(SessionFormation sessionFormation, Integer idUtilisateur) {
+		Utilisateur utilisateur = utilisateurRepository.findOne(idUtilisateur);
+		String subject = "Invitation à une formation sur "
+				+ sessionFormation.getFormation().getNom();
+		String text = "Bonjour "
+				+ utilisateur.getPrenom()
+				+ " "
+				+ utilisateur.getNom()
+				+ ",\n\nDans le cadre du renforcement des compétences de nos collaborateurs et afin d'accompagner l'évolution des technologies"
+				+ " de l'informatique, nous avons le plaisir de vous inviter à participer à une formation sur "
+				+ sessionFormation.getFormation().getNom()
+				+ ", organisée du "
+				+ sessionFormation.getDateDebut()
+				+ " au "
+				+ sessionFormation.getDateFin()
+				+ ", à "
+				+ sessionFormation.getLieu()
+				+ ".\n\nVous trouverez toutes les informations complémentaires et vous pouvez confirmer/refuser l'inscription à cette formation, "
+				+ "en vous connectant à votre compte sur l'application de gestion des formations"
+				+ ".\n\nNous restons à votre disposition pour toute question ou suggestion, et vous prie d'agréer, l'expression de nos salutations distinguées"
+				+ ".\n\n\nResponsable de formation.\nDirection des Ressources Humaines.";
+		emailService.sendMessage(utilisateur.getEmail(), subject, text);
+	}
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {
 		inscriptionRepository.deleteInscriptionsCollaborateurs(idSessionFormation);

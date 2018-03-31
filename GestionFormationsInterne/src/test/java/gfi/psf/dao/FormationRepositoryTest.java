@@ -1,5 +1,6 @@
 package gfi.psf.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import gfi.psf.entities.Formation;
 
@@ -19,12 +20,10 @@ public class FormationRepositoryTest {
 	private FormationRepository formationRepository;
 
 	@Test
-	public void testGetFormations() {
-		formationRepository.save(new Formation("nomC", "domaineC", "objectifC", 5000));
-		formationRepository.save(new Formation("nomA", "domaineA", "objectifA", 5000));
-		formationRepository.save(new Formation("nomB", "domaineB", "objectifB", 5000));
-		List<Formation> formations = formationRepository.getFormations();
+	public void testFindAllFormations() {
+		List<Formation> formations = formationRepository.findAllFormations();
 		assertNotNull(formations);
+		assertEquals(3, formations.size());
 		for (Formation formation : formations) {
 			System.out.println(formation);
 		}

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface InscriptionRepository extends JpaRepository<Inscription, Integer> {
 
 	@Query("select i from Inscription i where i.sessionFormation.idSession=:x and i.utilisateur.idUtilisateur=:y")
-	public Inscription getInscription(@Param("x") Integer idSession,
+	public Inscription findInscriptionByIdSessionAndIdUtilisateur(@Param("x") Integer idSession,
 			@Param("y") Integer idUtilisateur);
 
 	@Transactional

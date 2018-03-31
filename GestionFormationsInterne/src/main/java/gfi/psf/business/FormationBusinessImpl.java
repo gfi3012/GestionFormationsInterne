@@ -24,9 +24,9 @@ public class FormationBusinessImpl implements FormationBusiness {
 		logger.info("Formation saved : " + formation);
 	}
 
-	public List<Formation> consulterFormations() {
-		logger.info("Formations list size : " + formationRepository.getFormations().size());
-		return formationRepository.getFormations();
+	public List<Formation> listerFormations() {
+		logger.info("Formations list size : " + formationRepository.findAllFormations().size());
+		return formationRepository.findAllFormations();
 	}
 
 }

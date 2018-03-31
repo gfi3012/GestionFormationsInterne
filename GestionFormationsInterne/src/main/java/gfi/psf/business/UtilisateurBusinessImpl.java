@@ -20,8 +20,8 @@ public class UtilisateurBusinessImpl implements UtilisateurBusiness {
 
 	public void confirmerInscriptionSessionFormation(Integer idSessionFormation,
 			Integer idUtilisateur) {
-		Inscription inscription = inscriptionRepository.getInscription(idSessionFormation,
-				idUtilisateur);
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(
+				idSessionFormation, idUtilisateur);
 		inscription.setCodeInscription(2);
 		inscriptionRepository.save(inscription);
 		logger.info("Inscription confirmed : " + inscription.getIdInscription());
@@ -30,8 +30,8 @@ public class UtilisateurBusinessImpl implements UtilisateurBusiness {
 
 	public void refuserInscriptionSessionFormation(Integer idSessionFormation,
 			Integer idUtilisateur, String motifDuRefus) {
-		Inscription inscription = inscriptionRepository.getInscription(idSessionFormation,
-				idUtilisateur);
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(
+				idSessionFormation, idUtilisateur);
 		inscription.setCodeInscription(3);
 		inscription.setMotifDuRefus(motifDuRefus);
 		inscriptionRepository.save(inscription);

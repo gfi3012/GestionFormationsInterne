@@ -6,5 +6,5 @@ import gfi.psf.entities.Formation;
 public interface FormationBusiness {
 	
 	public void creerFormation(Formation formation);
-	public List<Formation> consulterFormations();
+	public List<Formation> listerFormations();
 }

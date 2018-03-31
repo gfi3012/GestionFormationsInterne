@@ -61,11 +61,10 @@ public class Inscription implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Inscription(int codeInscription, String motifDuRefus, SessionFormation sessionFormation,
+	public Inscription(int codeInscription, SessionFormation sessionFormation,
 			Utilisateur utilisateur) {
 		super();
 		this.codeInscription = codeInscription;
-		this.motifDuRefus = motifDuRefus;
 		this.sessionFormation = sessionFormation;
 		this.utilisateur = utilisateur;
 	}

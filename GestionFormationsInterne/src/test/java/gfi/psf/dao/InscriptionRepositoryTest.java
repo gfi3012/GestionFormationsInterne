@@ -2,12 +2,12 @@ package gfi.psf.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import gfi.psf.entities.Inscription;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +22,19 @@ public class InscriptionRepositoryTest {
 	private InscriptionRepository inscriptionRepository;
 
 	@Test
-	public void testGetInscription() {
-		Inscription inscription = inscriptionRepository.getInscription(2, 2);
+	public void testFindInscriptionByIdSessionAndIdUtilisateur() {
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(
+				2, 2);
 		assertNotNull(inscription);
 		assertEquals(new Integer(1), inscription.getIdInscription());
 		System.out.println(inscription);
 	}
 
-	@Test
+	@Ignore
 	public void testDeleteInscriptionsCollaborateurs() {
 		List<Inscription> listInscriptions1 = inscriptionRepository.findAll();
 		inscriptionRepository.deleteInscriptionsCollaborateurs(2);
 		List<Inscription> listInscriptions2 = inscriptionRepository.findAll();
-		assertTrue(listInscriptions1.size() - 2 == listInscriptions2.size());
+		assertEquals(listInscriptions1.size() - 2, listInscriptions2.size());
 	}
 }

@@ -1,7 +1,8 @@
 package gfi.psf.business;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,8 @@ import gfi.psf.dao.InscriptionRepository;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
 import gfi.psf.entities.Inscription;
-import gfi.psf.entities.SessionFormation;
-import gfi.psf.entities.Utilisateur;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,30 +35,31 @@ public class InscriptionBusinessTest {
 
 	@Test
 	public void testInscrireCollaborateursSessionFormation() {
-		utilisateurRepository.save(new Utilisateur());
-		utilisateurRepository.save(new Utilisateur());
-		List<Utilisateur> listUtilisateur = utilisateurRepository.findAll();
 		List<Integer> listIdUtilisateur = new ArrayList<Integer>(2);
-		listIdUtilisateur.add(listUtilisateur.get(0).getIdUtilisateur());
-		listIdUtilisateur.add(listUtilisateur.get(1).getIdUtilisateur());
-		List<SessionFormation> listSessionFormation = sessionFormationRepository.findAll();
-		inscriptionBusiness.inscrireCollaborateursSessionFormation(listSessionFormation.get(0)
-				.getIdSession(), listIdUtilisateur);
-		Inscription inscription = inscriptionRepository.getInscription(listSessionFormation.get(0)
-				.getIdSession(), listIdUtilisateur.get(0));
+		listIdUtilisateur.add(new Integer(1));
+		listIdUtilisateur.add(new Integer(2));
+		List<Inscription> listInscription1 = inscriptionRepository.findAll();
+		inscriptionBusiness.inscrireCollaborateursSessionFormation(new Integer(1),
+				listIdUtilisateur);
+		List<Inscription> listInscription2 = inscriptionRepository.findAll();
+		assertEquals(listInscription1.size() + 2, listInscription2.size());
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(
+				new Integer(1), listIdUtilisateur.get(0));
 		assertNotNull(inscription);
-		assertTrue(inscription.getCodeInscription() == 1);
-		inscription = inscriptionRepository.getInscription(listSessionFormation.get(0)
-				.getIdSession(), listIdUtilisateur.get(1));
+		assertEquals(inscription.getCodeInscription(), 1);
+		assertNull(inscription.getMotifDuRefus());
+		inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(new Integer(
+				1), listIdUtilisateur.get(1));
 		assertNotNull(inscription);
-		assertTrue(inscription.getCodeInscription() == 1);
+		assertEquals(inscription.getCodeInscription(), 1);
+		assertNull(inscription.getMotifDuRefus());
 	}
 
-	 @Test
-	 public void testSupprimerCollaborateursNonFormes(){
+	@Ignore
+	public void testSupprimerCollaborateursNonFormes() {
 		List<Inscription> listInscriptions1 = inscriptionRepository.findAll();
 		inscriptionBusiness.supprimerCollaborateursNonFormes(2);
 		List<Inscription> listInscriptions2 = inscriptionRepository.findAll();
-		assertTrue(listInscriptions1.size() - 2 == listInscriptions2.size());
-	 }
+		assertEquals(listInscriptions1.size() - 2, listInscriptions2.size());
+	}
 }

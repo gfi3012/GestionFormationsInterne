@@ -22,8 +22,8 @@ public class FormationService {
 	}
 
 	@RequestMapping(value = "/formations", method = RequestMethod.GET)
-	public List<Formation> consulterFormations() {
-		return formationBusiness.consulterFormations();
+	public List<Formation> listerFormations() {
+		return formationBusiness.listerFormations();
 	}
 
 }
