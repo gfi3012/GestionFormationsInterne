@@ -23,11 +23,10 @@ public class InscriptionRepositoryTest {
 
 	@Test
 	public void testFindInscriptionByIdSessionAndIdUtilisateur() {
-		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(
 				2, 2);
 		assertNotNull(inscription);
 		assertEquals(new Integer(1), inscription.getIdInscription());
-		System.out.println(inscription);
 	}
 
 	@Ignore

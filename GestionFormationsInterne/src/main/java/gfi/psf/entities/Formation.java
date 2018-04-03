@@ -9,10 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
+@JsonIgnoreProperties("sessionsFormation")
 public class Formation implements Serializable {
 
-	private static final long serialVersionUID = 8893944213339743866L;
+	private static final long serialVersionUID = -8471853380699645409L;
 	@Id
 	@GeneratedValue
 	private Integer idFormation;
@@ -23,7 +27,8 @@ public class Formation implements Serializable {
 	private String objectif;
 	private double budget;
 	@OneToMany(mappedBy = "formation")
-	private Collection<SessionFormation> sessionFormations;
+	@JsonManagedReference
+	private Collection<SessionFormation> sessionsFormation;
 
 	public Integer getIdFormation() {
 		return idFormation;
@@ -65,12 +70,13 @@ public class Formation implements Serializable {
 		this.budget = budget;
 	}
 
-	public Collection<SessionFormation> getSessionFormations() {
-		return sessionFormations;
+
+	public Collection<SessionFormation> getSessionsFormation() {
+		return sessionsFormation;
 	}
 
-	public void setSessionFormations(Collection<SessionFormation> sessionFormations) {
-		this.sessionFormations = sessionFormations;
+	public void setSessionsFormation(Collection<SessionFormation> sessionsFormation) {
+		this.sessionsFormation = sessionsFormation;
 	}
 
 	public Formation() {

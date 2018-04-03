@@ -43,12 +43,12 @@ public class InscriptionBusinessTest {
 				listIdUtilisateur);
 		List<Inscription> listInscription2 = inscriptionRepository.findAll();
 		assertEquals(listInscription1.size() + 2, listInscription2.size());
-		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(
 				new Integer(1), listIdUtilisateur.get(0));
 		assertNotNull(inscription);
 		assertEquals(inscription.getCodeInscription(), 1);
 		assertNull(inscription.getMotifDuRefus());
-		inscription = inscriptionRepository.findInscriptionByIdSessionAndIdUtilisateur(new Integer(
+		inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(new Integer(
 				1), listIdUtilisateur.get(1));
 		assertNotNull(inscription);
 		assertEquals(inscription.getCodeInscription(), 1);
@@ -61,5 +61,22 @@ public class InscriptionBusinessTest {
 		inscriptionBusiness.supprimerCollaborateursNonFormes(2);
 		List<Inscription> listInscriptions2 = inscriptionRepository.findAll();
 		assertEquals(listInscriptions1.size() - 2, listInscriptions2.size());
+	}
+	
+	@Test
+	public void testConfirmerInscriptionSessionFormation() {
+		inscriptionBusiness.confirmerInscriptionSessionFormation(1, 1);
+		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(
+				1, 1);
+		assertEquals(2, inscription.getCodeInscription());
+	}
+
+	@Ignore
+	public void testRefuserInscriptionSessionFormation() {
+		Inscription inscription = inscriptionRepository.findOne(new Integer(20));
+		inscriptionBusiness.refuserInscriptionSessionFormation(inscription);
+		inscription = inscriptionRepository.findOne(new Integer(20));
+		assertEquals(3, inscription.getCodeInscription());
+		assertNotNull(inscription.getMotifDuRefus());
 	}
 }

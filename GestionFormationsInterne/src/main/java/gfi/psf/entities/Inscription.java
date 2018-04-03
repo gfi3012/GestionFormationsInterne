@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Inscription implements Serializable {
 
-	private static final long serialVersionUID = 4199043674131127074L;
+	private static final long serialVersionUID = -5235047697345217624L;
 	@Id
 	@GeneratedValue
 	private Integer idInscription;
@@ -19,10 +21,12 @@ public class Inscription implements Serializable {
 	private String motifDuRefus;
 	@ManyToOne
 	@JoinColumn(name = "id_session_formation")
+	@JsonBackReference
 	private SessionFormation sessionFormation;
 	@ManyToOne
-	@JoinColumn(name = "id_utilisateur")
-	public Utilisateur utilisateur;
+	@JoinColumn(name = "id_collaborateur")
+	@JsonBackReference
+	public Utilisateur collaborateur;
 
 	public Integer getIdInscription() {
 		return idInscription;
@@ -48,12 +52,12 @@ public class Inscription implements Serializable {
 		this.sessionFormation = sessionFormation;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public Utilisateur getCollaborateur() {
+		return collaborateur;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setCollaborateur(Utilisateur collaborateur) {
+		this.collaborateur = collaborateur;
 	}
 
 	public Inscription() {
@@ -62,11 +66,11 @@ public class Inscription implements Serializable {
 	}
 
 	public Inscription(int codeInscription, SessionFormation sessionFormation,
-			Utilisateur utilisateur) {
+			Utilisateur collaborateur) {
 		super();
 		this.codeInscription = codeInscription;
 		this.sessionFormation = sessionFormation;
-		this.utilisateur = utilisateur;
+		this.collaborateur = collaborateur;
 	}
 
 	public String getMotifDuRefus() {
@@ -81,7 +85,7 @@ public class Inscription implements Serializable {
 	public String toString() {
 		return "Inscription [idInscription=" + idInscription + ", codeInscription="
 				+ codeInscription + ", motifDuRefus=" + motifDuRefus + ", idSessionFormation="
-				+ sessionFormation.getIdSession() + ", idUtilisateur=" + utilisateur.getIdUtilisateur() + "]";
+				+ sessionFormation.getIdSession() + ", idCollaborateur=" + collaborateur.getIdUtilisateur() + "]";
 	}
 
 }

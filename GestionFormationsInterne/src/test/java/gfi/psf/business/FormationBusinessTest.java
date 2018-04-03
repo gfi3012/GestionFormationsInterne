@@ -1,6 +1,7 @@
 package gfi.psf.business;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -29,14 +30,28 @@ public class FormationBusinessTest {
 	public void testCreerFormation() {
 		List<Formation> listFormations1 = formationRepository.findAllFormations();
 		formationBusiness.creerFormation(new Formation("nomC", "domaineC", "objectifC", 5000));
-		formationBusiness
-				.creerFormation(new Formation("nomA", "domaineA", "objectifA", 6000));
+		formationBusiness.creerFormation(new Formation("nomA", "domaineA", "objectifA", 6000));
 		formationBusiness.creerFormation(new Formation("nomB", "domaineB", "objectifB", 35000));
 		List<Formation> listFormations2 = formationRepository.findAllFormations();
 		assertEquals(listFormations1.size() + 3, listFormations2.size());
 	}
 
-//	@Ignore
+	@Ignore
+	public void testModifierFormation() {
+		Formation formation = formationRepository.findOne(new Integer(1));
+		formation.setNom("nomD");
+		formation.setDomaine("domaineD");
+		formation.setObjectif("objectifD");
+		formation.setBudget(8000);
+		formationBusiness.modifierFormation(formation);
+		formation = formationRepository.findOne(new Integer(1));
+		assertEquals("nomD", formation.getNom());
+		assertEquals("domaineD", formation.getDomaine());
+		assertEquals("objectifD", formation.getObjectif());
+		assertTrue(8000 == formation.getBudget());
+	}
+
+	// @Ignore
 	@Test
 	public void testListerFormations() {
 		List<Formation> formations = formationBusiness.listerFormations();

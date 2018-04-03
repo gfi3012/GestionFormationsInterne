@@ -24,9 +24,6 @@ public class FormationRepositoryTest {
 		List<Formation> formations = formationRepository.findAllFormations();
 		assertNotNull(formations);
 		assertEquals(3, formations.size());
-		for (Formation formation : formations) {
-			System.out.println(formation);
-		}
 	}
 
 }

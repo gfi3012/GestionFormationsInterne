@@ -12,10 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Utilisateur implements Serializable {
 
-	private static final long serialVersionUID = 7914924840047348888L;
+	private static final long serialVersionUID = -7487899286008296203L;
 	@Id
 	@GeneratedValue
 	private Integer idUtilisateur;
@@ -36,8 +38,6 @@ public class Utilisateur implements Serializable {
 	@Column(length = 30)
 	private String motDePasse;
 	private boolean active;
-	@OneToMany(mappedBy = "utilisateur")
-	private Collection<Inscription> inscriptions;
 
 	public Integer getIdUtilisateur() {
 		return idUtilisateur;
@@ -117,14 +117,6 @@ public class Utilisateur implements Serializable {
 
 	public void setActive(boolean active) {
 		this.active = active;
-	}
-
-	public Collection<Inscription> getInscriptions() {
-		return inscriptions;
-	}
-
-	public void setInscriptions(Collection<Inscription> inscriptions) {
-		this.inscriptions = inscriptions;
 	}
 
 	public Utilisateur() {

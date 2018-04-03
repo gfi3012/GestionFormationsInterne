@@ -15,7 +15,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
+@JsonIgnoreProperties("inscriptions")
 public class SessionFormation implements Serializable {
 
 	private static final long serialVersionUID = -6104727009777247909L;
@@ -31,8 +36,10 @@ public class SessionFormation implements Serializable {
 	private String lieu;
 	@ManyToOne
 	@JoinColumn(name = "id_formation")
+	@JsonBackReference
 	private Formation formation;
 	@OneToMany(mappedBy = "sessionFormation")
+	@JsonManagedReference
 	public Collection<Inscription> inscriptions;
 	@OneToOne
 	@JoinColumn(name = "id_formateur")

@@ -24,9 +24,13 @@ public class FormationBusinessImpl implements FormationBusiness {
 		logger.info("Formation saved : " + formation);
 	}
 
+	public void modifierFormation(Formation formation) {
+		formationRepository.save(formation);
+		logger.info("Formation modified : " + formation);
+	}
+
 	public List<Formation> listerFormations() {
 		logger.info("Formations list size : " + formationRepository.findAllFormations().size());
 		return formationRepository.findAllFormations();
 	}
-
 }
