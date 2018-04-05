@@ -26,7 +26,7 @@ public class InscriptionRepositoryTest {
 		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(
 				2, 2);
 		assertNotNull(inscription);
-		assertEquals(new Integer(1), inscription.getIdInscription());
+		assertEquals(new Integer(1), inscription.getId());
 	}
 
 	@Ignore

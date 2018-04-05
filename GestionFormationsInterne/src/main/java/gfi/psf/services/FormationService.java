@@ -26,7 +26,7 @@ public class FormationService {
 
 	@PutMapping("/formations/{idFormation}")
 	public void modifierFormation(@PathVariable Integer idFormation, @RequestBody Formation formation) {
-		formation.setIdFormation(idFormation);
+		formation.setId(idFormation);
 		formationBusiness.modifierFormation(formation);
 	}
 

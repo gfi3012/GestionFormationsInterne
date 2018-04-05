@@ -9,6 +9,7 @@ import java.util.List;
 import gfi.psf.business.SessionFormationBusiness;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
+import gfi.psf.entities.Formation;
 import gfi.psf.entities.SessionFormation;
 
 import org.junit.Ignore;
@@ -29,24 +30,23 @@ public class SessionFormationBusinessTest {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 
-	@Ignore
+	@Test
 	public void testCreerSessionFormation() {
 		List<SessionFormation> listSessionFormation1 = sessionFormationRepository.findAll();
 		sessionFormationBusiness.creerSessionFormation(new SessionFormation(new Date(), new Date(),
-				20, "lieu1"));
+				20, "lieu1",new Formation(new Integer(1))));
 		sessionFormationBusiness.creerSessionFormation(new SessionFormation(new Date(), new Date(),
-				10, "lieu2"));
+				10, "lieu2",new Formation(new Integer(2))));
 		List<SessionFormation> listSessionFormation2 = sessionFormationRepository.findAll();
 		assertEquals(listSessionFormation1.size() + 2, listSessionFormation2.size());
 	}
 
-//	@Ignore
-	@Test
+	@Ignore
 	public void testAffecterFormateurSessionFormation() {
 		sessionFormationBusiness.affecterFormateurSessionFormation(new Integer(2), new Integer(1));
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(new Integer(2));
 		assertNotNull(sessionFormation.getFormateur());
-		assertEquals(sessionFormation.getFormateur().getIdUtilisateur(), new Integer(1));
+		assertEquals(new Integer(1), sessionFormation.getFormateur().getId());
 	}
 
 }

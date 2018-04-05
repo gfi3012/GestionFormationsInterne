@@ -23,16 +23,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties("inscriptions")
 public class SessionFormation implements Serializable {
 
-	private static final long serialVersionUID = -6104727009777247909L;
+	private static final long serialVersionUID = 1340621921964384427L;
 	@Id
 	@GeneratedValue
-	private Integer idSession;
+	private Integer id;
 	@Temporal(TemporalType.DATE)
 	private Date dateDebut;
 	@Temporal(TemporalType.DATE)
 	private Date dateFin;
 	private int nbrPlaces;
-	@Column(length = 120)
+	@Column(length = 170)
 	private String lieu;
 	@ManyToOne
 	@JoinColumn(name = "id_formation")
@@ -45,12 +45,12 @@ public class SessionFormation implements Serializable {
 	@JoinColumn(name = "id_formateur")
 	public Utilisateur formateur;
 
-	public Integer getIdSession() {
-		return idSession;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdSession(Integer idSession) {
-		this.idSession = idSession;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Date getDateDebut() {
@@ -114,18 +114,21 @@ public class SessionFormation implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SessionFormation(Date dateDebut, Date dateFin, int nbrPlaces, String lieu) {
+
+	public SessionFormation(Date dateDebut, Date dateFin, int nbrPlaces, String lieu,
+			Formation formation) {
 		super();
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.nbrPlaces = nbrPlaces;
 		this.lieu = lieu;
+		this.formation = formation;
 	}
 
 	@Override
 	public String toString() {
-		return "SessionFormation [idSession=" + idSession + ", dateDebut=" + dateDebut
-				+ ", dateFin=" + dateFin + ", nbrPlaces=" + nbrPlaces + ", lieu=" + lieu + "]";
+		return "SessionFormation [id=" + id + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
+				+ ", nbrPlaces=" + nbrPlaces + ", lieu=" + lieu + "]";
 	}
 
 }

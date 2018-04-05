@@ -26,7 +26,7 @@ public class FormationBusinessTest {
 	@Autowired
 	private FormationRepository formationRepository;
 
-	@Ignore
+	@Test
 	public void testCreerFormation() {
 		List<Formation> listFormations1 = formationRepository.findAllFormations();
 		formationBusiness.creerFormation(new Formation("nomC", "domaineC", "objectifC", 5000));
@@ -51,8 +51,7 @@ public class FormationBusinessTest {
 		assertTrue(8000 == formation.getBudget());
 	}
 
-	// @Ignore
-	@Test
+	@Ignore
 	public void testListerFormations() {
 		List<Formation> formations = formationBusiness.listerFormations();
 		assertNotNull(formations);

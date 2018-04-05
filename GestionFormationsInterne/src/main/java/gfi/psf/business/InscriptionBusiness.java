@@ -12,7 +12,8 @@ public interface InscriptionBusiness {
 	public void confirmerInscriptionSessionFormation(Integer idSessionFormation,
 			Integer idCollaborateur);
 
-	public void refuserInscriptionSessionFormation(Inscription inscription);
+	public void refuserInscriptionSessionFormation(Integer idSessionFormation,
+			Integer idCollaborateur, String motifDuRefus);
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation);
 }

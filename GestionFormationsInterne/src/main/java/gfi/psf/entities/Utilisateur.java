@@ -1,50 +1,47 @@
 package gfi.psf.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Utilisateur implements Serializable {
 
-	private static final long serialVersionUID = -7487899286008296203L;
+	private static final long serialVersionUID = -7155128342672318441L;
 	@Id
 	@GeneratedValue
-	private Integer idUtilisateur;
-	@Column(length = 30)
+	private Integer id;
+	@Column(length = 40)
 	private String cin;
-	@Column(length = 30)
+	@Column(length = 40)
 	private String nom;
-	@Column(length = 30)
+	@Column(length = 40)
 	private String prenom;
-	@Column(length = 30)
+	@Column(length = 40)
 	private String email;
 	@Temporal(TemporalType.DATE)
 	private Date dateDeNaissance;
 	@Temporal(TemporalType.DATE)
 	private Date dateEntree;
-	@Column(length = 30)
+	@Column(length = 40)
 	private String identifiant;
-	@Column(length = 30)
+	@Column(length = 40)
 	private String motDePasse;
 	private boolean active;
 
-	public Integer getIdUtilisateur() {
-		return idUtilisateur;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdUtilisateur(Integer idUtilisateur) {
-		this.idUtilisateur = idUtilisateur;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getCin() {
@@ -124,9 +121,9 @@ public class Utilisateur implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Utilisateur(Integer idUtilisateur) {
+	public Utilisateur(Integer id) {
 		super();
-		this.idUtilisateur = idUtilisateur;
+		this.id = id;
 	}
 
 }

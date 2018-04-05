@@ -16,13 +16,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @JsonIgnoreProperties("sessionsFormation")
 public class Formation implements Serializable {
 
-	private static final long serialVersionUID = -8471853380699645409L;
+	private static final long serialVersionUID = 4256247425885221543L;
 	@Id
 	@GeneratedValue
-	private Integer idFormation;
-	@Column(length = 40)
+	private Integer id;
+	@Column(length = 100)
 	private String nom;
-	@Column(length = 80)
 	private String domaine;
 	private String objectif;
 	private double budget;
@@ -30,12 +29,12 @@ public class Formation implements Serializable {
 	@JsonManagedReference
 	private Collection<SessionFormation> sessionsFormation;
 
-	public Integer getIdFormation() {
-		return idFormation;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdFormation(Integer idFormation) {
-		this.idFormation = idFormation;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getNom() {
@@ -70,7 +69,6 @@ public class Formation implements Serializable {
 		this.budget = budget;
 	}
 
-
 	public Collection<SessionFormation> getSessionsFormation() {
 		return sessionsFormation;
 	}
@@ -92,10 +90,15 @@ public class Formation implements Serializable {
 		this.budget = budget;
 	}
 
+	public Formation(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "Formation [idFormation=" + idFormation + ", nom=" + nom + ", domaine=" + domaine
-				+ ", objectif=" + objectif + ", budget=" + budget + "]";
+		return "Formation [id=" + id + ", nom=" + nom + ", domaine=" + domaine + ", objectif="
+				+ objectif + ", budget=" + budget + "]";
 	}
 
 }

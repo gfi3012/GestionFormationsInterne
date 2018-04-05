@@ -3,6 +3,7 @@ package gfi.psf.business;
 import gfi.psf.dao.InscriptionRepository;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
+import gfi.psf.entities.EtatInscription;
 import gfi.psf.entities.Inscription;
 import gfi.psf.entities.SessionFormation;
 import gfi.psf.entities.Utilisateur;
@@ -32,11 +33,10 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 
 	public void inscrireCollaborateursSessionFormation(Integer idSessionFormation,
 			List<Integer> listIdCollaborateur) {
-		// 1 : inviter | 2 : confirmer | 3 : refuser
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(idSessionFormation);
 		for (Integer idCollaborateur : listIdCollaborateur) {
-			inscriptionRepository.save(new Inscription(1, sessionFormation, new Utilisateur(
-					idCollaborateur)));
+			inscriptionRepository.save(new Inscription(EtatInscription.INVITED, sessionFormation,
+					new Utilisateur(idCollaborateur)));
 		}
 		logger.info(listIdCollaborateur.size() + " Collaborateurs saved in Inscription");
 		for (Integer idCollaborateur : listIdCollaborateur) {
@@ -74,15 +74,19 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 			Integer idCollaborateur) {
 		Inscription inscription = inscriptionRepository
 				.findInscriptionByIdSessionAndIdCollaborateur(idSessionFormation, idCollaborateur);
-		inscription.setCodeInscription(2);
+		inscription.setEtat(EtatInscription.CONFIRMED);
 		inscriptionRepository.save(inscription);
-		logger.info("Inscription confirmed : " + inscription.getIdInscription());
+		logger.info("Inscription confirmed : " + inscription.getId());
 	}
 
-	public void refuserInscriptionSessionFormation(Inscription inscription) {
-		inscription.setCodeInscription(3);
+	public void refuserInscriptionSessionFormation(Integer idSessionFormation,
+			Integer idCollaborateur, String motifDuRefus) {
+		Inscription inscription = inscriptionRepository
+				.findInscriptionByIdSessionAndIdCollaborateur(idSessionFormation, idCollaborateur);
+		inscription.setEtat(EtatInscription.REFUSED);
+		inscription.setMotifDuRefus(motifDuRefus);
 		inscriptionRepository.save(inscription);
-		logger.info("Inscription refused : " + inscription.getIdInscription());
+		logger.info("Inscription refused : " + inscription.getId());
 	}
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {
