@@ -35,7 +35,7 @@ public class SessionFormation implements Serializable {
 	@Column(length = 170)
 	private String lieu;
 	@ManyToOne
-	@JoinColumn(name = "id_formation")
+	@JoinColumn(name = "id_formation", nullable = false)
 	@JsonBackReference
 	private Formation formation;
 	@OneToMany(mappedBy = "sessionFormation")
@@ -113,7 +113,6 @@ public class SessionFormation implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public SessionFormation(Date dateDebut, Date dateFin, int nbrPlaces, String lieu,
 			Formation formation) {

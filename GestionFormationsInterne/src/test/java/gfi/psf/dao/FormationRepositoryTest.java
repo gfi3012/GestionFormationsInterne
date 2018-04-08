@@ -23,6 +23,9 @@ public class FormationRepositoryTest {
 	public void testFindAllFormations() {
 		List<Formation> formations = formationRepository.findAllFormations();
 		assertNotNull(formations);
+		assertEquals("nomA",formations.get(0).getNom());
+		assertEquals("nomB",formations.get(1).getNom());
+		assertEquals("nomC",formations.get(2).getNom());
 		assertEquals(3, formations.size());
 	}
 

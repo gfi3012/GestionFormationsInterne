@@ -10,15 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
 public class Utilisateur implements Serializable {
 
-	private static final long serialVersionUID = -7155128342672318441L;
+	private static final long serialVersionUID = 1281027658459526723L;
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@Column(length = 40)
+	@Column(length = 40, unique = true)
 	private String cin;
 	@Column(length = 40)
 	private String nom;
@@ -34,7 +33,7 @@ public class Utilisateur implements Serializable {
 	private String identifiant;
 	@Column(length = 40)
 	private String motDePasse;
-	private boolean active;
+	private boolean actif;
 
 	public Integer getId() {
 		return id;
@@ -108,12 +107,12 @@ public class Utilisateur implements Serializable {
 		this.motDePasse = motDePasse;
 	}
 
-	public boolean isActive() {
-		return active;
+	public boolean isActif() {
+		return actif;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setActif(boolean actif) {
+		this.actif = actif;
 	}
 
 	public Utilisateur() {

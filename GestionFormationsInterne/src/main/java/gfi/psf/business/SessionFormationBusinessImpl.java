@@ -25,11 +25,12 @@ public class SessionFormationBusinessImpl implements SessionFormationBusiness {
 		logger.info("SessionFormation saved : " + sessionFormation);
 	}
 
-	public void affecterFormateurSessionFormation(Integer idSessionFormation, Integer idFormateur) {
+	public void affecterFormateurSessionFormation(Integer idFormateur, Integer idSessionFormation) {
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(idSessionFormation);
 		sessionFormation.setFormateur(new Utilisateur(idFormateur));
 		sessionFormationRepository.save(sessionFormation);
-		logger.info("IdFormateur affected : " + idFormateur);
+		logger.info("Formateur affected : " + idFormateur + " to SessionFormation : "
+				+ idSessionFormation);
 	}
 
 }

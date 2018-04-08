@@ -10,10 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface InscriptionRepository extends JpaRepository<Inscription, Integer> {
 
-	@Query("select i from Inscription i where i.sessionFormation.id=:x and i.collaborateur.id=:y")
-	public Inscription findInscriptionByIdSessionAndIdCollaborateur(@Param("x") Integer idSession,
-			@Param("y") Integer idCollaborateur);
-
 	@Transactional
 	@Modifying
 	@Query("delete from Inscription i where i.sessionFormation.id=:x and i.etat=gfi.psf.entities.EtatInscription.REFUSED")

@@ -33,45 +33,40 @@ public class InscriptionBusinessTest {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 
-	@Ignore
+	@Test
 	public void testInscrireCollaborateursSessionFormation() {
 		List<Integer> listIdUtilisateur = new ArrayList<Integer>(2);
 		listIdUtilisateur.add(new Integer(1));
 		listIdUtilisateur.add(new Integer(2));
 		List<Inscription> listInscription1 = inscriptionRepository.findAll();
-		inscriptionBusiness.inscrireCollaborateursSessionFormation(new Integer(1),
-				listIdUtilisateur);
+		inscriptionBusiness.inscrireCollaborateursSessionFormation(listIdUtilisateur,
+				new Integer(1));
 		List<Inscription> listInscription2 = inscriptionRepository.findAll();
 		assertEquals(listInscription1.size() + 2, listInscription2.size());
-		Inscription inscription = inscriptionRepository
-				.findInscriptionByIdSessionAndIdCollaborateur(new Integer(1),
-						listIdUtilisateur.get(0));
+		Inscription inscription = inscriptionRepository.findOne(new Integer(1));
 		assertNotNull(inscription);
 		assertEquals(EtatInscription.INVITED, inscription.getEtat());
-		inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(
-				new Integer(1), listIdUtilisateur.get(1));
+		inscription = inscriptionRepository.findOne(new Integer(2));
 		assertNotNull(inscription);
 		assertEquals(EtatInscription.INVITED, inscription.getEtat());
 	}
 
 	@Ignore
 	public void testConfirmerInscriptionSessionFormation() {
-		inscriptionBusiness.confirmerInscriptionSessionFormation(1, 1);
-		Inscription inscription = inscriptionRepository
-				.findInscriptionByIdSessionAndIdCollaborateur(1, 1);
+		inscriptionBusiness.confirmerInscriptionSessionFormation(1);
+		Inscription inscription = inscriptionRepository.findOne(new Integer(1));
 		assertEquals(EtatInscription.CONFIRMED, inscription.getEtat());
 	}
 
 	@Ignore
 	public void testRefuserInscriptionSessionFormation() {
-		inscriptionBusiness.refuserInscriptionSessionFormation(1, 2, "motifs");
-		Inscription inscription = inscriptionRepository
-				.findInscriptionByIdSessionAndIdCollaborateur(1, 2);
+		inscriptionBusiness.refuserInscriptionSessionFormation(2, "motifs");
+		Inscription inscription = inscriptionRepository.findOne(new Integer(2));
 		assertEquals(EtatInscription.REFUSED, inscription.getEtat());
-		assertNotNull(inscription.getMotifDuRefus());
+		assertEquals("motifs", inscription.getMotifDuRefus());
 	}
 
-	@Test
+	@Ignore
 	public void testSupprimerCollaborateursNonFormes() {
 		List<Inscription> listInscriptions1 = inscriptionRepository.findAll();
 		inscriptionBusiness.supprimerCollaborateursNonFormes(1);

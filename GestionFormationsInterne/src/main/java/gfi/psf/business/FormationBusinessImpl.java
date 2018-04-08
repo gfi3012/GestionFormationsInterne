@@ -30,7 +30,8 @@ public class FormationBusinessImpl implements FormationBusiness {
 	}
 
 	public List<Formation> listerFormations() {
-		logger.info("Formations list size : " + formationRepository.findAllFormations().size());
-		return formationRepository.findAllFormations();
+		List<Formation> listFormation = formationRepository.findAllFormations();
+		logger.info("listFormation size : " + listFormation.size());
+		return listFormation;
 	}
 }

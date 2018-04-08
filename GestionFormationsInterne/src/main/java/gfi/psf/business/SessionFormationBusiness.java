@@ -6,6 +6,5 @@ public interface SessionFormationBusiness {
 
 	public void creerSessionFormation(SessionFormation sessionFormation);
 
-	public void affecterFormateurSessionFormation(
-			Integer idSessionFormation, Integer idFormateur);
+	public void affecterFormateurSessionFormation(Integer idFormateur, Integer idSessionFormation);
 }

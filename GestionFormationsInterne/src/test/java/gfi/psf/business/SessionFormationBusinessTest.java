@@ -44,9 +44,9 @@ public class SessionFormationBusinessTest {
 	@Ignore
 	public void testAffecterFormateurSessionFormation() {
 		sessionFormationBusiness.affecterFormateurSessionFormation(new Integer(2), new Integer(1));
-		SessionFormation sessionFormation = sessionFormationRepository.findOne(new Integer(2));
+		SessionFormation sessionFormation = sessionFormationRepository.findOne(new Integer(1));
 		assertNotNull(sessionFormation.getFormateur());
-		assertEquals(new Integer(1), sessionFormation.getFormateur().getId());
+		assertEquals(new Integer(2), sessionFormation.getFormateur().getId());
 	}
 
 }

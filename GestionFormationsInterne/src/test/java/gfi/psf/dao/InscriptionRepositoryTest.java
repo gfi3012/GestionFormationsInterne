@@ -1,13 +1,11 @@
 package gfi.psf.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
 import gfi.psf.entities.Inscription;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +20,6 @@ public class InscriptionRepositoryTest {
 	private InscriptionRepository inscriptionRepository;
 
 	@Test
-	public void testFindInscriptionByIdSessionAndIdUtilisateur() {
-		Inscription inscription = inscriptionRepository.findInscriptionByIdSessionAndIdCollaborateur(
-				2, 2);
-		assertNotNull(inscription);
-		assertEquals(new Integer(1), inscription.getId());
-	}
-
-	@Ignore
 	public void testDeleteInscriptionsCollaborateurs() {
 		List<Inscription> listInscriptions1 = inscriptionRepository.findAll();
 		inscriptionRepository.deleteInscriptionsCollaborateurs(2);

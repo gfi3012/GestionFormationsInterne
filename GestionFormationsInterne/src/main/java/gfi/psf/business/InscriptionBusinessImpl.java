@@ -31,30 +31,29 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 	@Autowired
 	public EmailSender emailSender;
 
-	public void inscrireCollaborateursSessionFormation(Integer idSessionFormation,
-			List<Integer> listIdCollaborateur) {
+	public void inscrireCollaborateursSessionFormation(List<Integer> listIdCollaborateur,
+			Integer idSessionFormation) {
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(idSessionFormation);
 		for (Integer idCollaborateur : listIdCollaborateur) {
-			inscriptionRepository.save(new Inscription(EtatInscription.INVITED, sessionFormation,
-					new Utilisateur(idCollaborateur)));
+			Utilisateur collaborateur = utilisateurRepository.findOne(idCollaborateur);
+			if (collaborateur.isActif()) {
+				inscriptionRepository.save(new Inscription(EtatInscription.INVITED,
+						sessionFormation, new Utilisateur(idCollaborateur)));
+				envoyerEmailCollaborateur(sessionFormation, collaborateur);
+			}
 		}
-		logger.info(listIdCollaborateur.size() + " Collaborateurs saved in Inscription");
-		for (Integer idCollaborateur : listIdCollaborateur) {
-			envoyerEmailCollaborateur(sessionFormation, idCollaborateur);
-		}
-		logger.info(listIdCollaborateur.size() + " Collaborateurs invited");
+		logger.info("Collaborateurs saved in Inscription and invited");
 	}
 
 	private void envoyerEmailCollaborateur(SessionFormation sessionFormation,
-			Integer idCollaborateur) {
-		Utilisateur collaborateur = utilisateurRepository.findOne(idCollaborateur);
+			Utilisateur collaborateur) {
 		String subject = "Invitation à une formation sur "
 				+ sessionFormation.getFormation().getNom();
 		String text = "Bonjour "
 				+ collaborateur.getPrenom()
 				+ " "
 				+ collaborateur.getNom()
-				+ ",\n\nDans le cadre du renforcement des compétences de nos collaborateurs et afin d'accompagner l'évolution des technologies"
+				+ ",\n\nDans le cadre du renforcement des compétences de nos collaborateurs, et afin d'accompagner l'évolution des technologies"
 				+ " de l'informatique, nous avons le plaisir de vous inviter à participer à une formation sur "
 				+ sessionFormation.getFormation().getNom()
 				+ ", organisée du "
@@ -70,19 +69,15 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 		emailSender.sendMessage(collaborateur.getEmail(), subject, text);
 	}
 
-	public void confirmerInscriptionSessionFormation(Integer idSessionFormation,
-			Integer idCollaborateur) {
-		Inscription inscription = inscriptionRepository
-				.findInscriptionByIdSessionAndIdCollaborateur(idSessionFormation, idCollaborateur);
+	public void confirmerInscriptionSessionFormation(Integer idInscription) {
+		Inscription inscription = inscriptionRepository.findOne(idInscription);
 		inscription.setEtat(EtatInscription.CONFIRMED);
 		inscriptionRepository.save(inscription);
 		logger.info("Inscription confirmed : " + inscription.getId());
 	}
 
-	public void refuserInscriptionSessionFormation(Integer idSessionFormation,
-			Integer idCollaborateur, String motifDuRefus) {
-		Inscription inscription = inscriptionRepository
-				.findInscriptionByIdSessionAndIdCollaborateur(idSessionFormation, idCollaborateur);
+	public void refuserInscriptionSessionFormation(Integer idInscription, String motifDuRefus) {
+		Inscription inscription = inscriptionRepository.findOne(idInscription);
 		inscription.setEtat(EtatInscription.REFUSED);
 		inscription.setMotifDuRefus(motifDuRefus);
 		inscriptionRepository.save(inscription);
@@ -91,7 +86,7 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {
 		inscriptionRepository.deleteInscriptionsCollaborateurs(idSessionFormation);
-		logger.info("Collaborateurs with codeInscription=3 in SessionFormation="
+		logger.info("Collaborateurs with EtatInscription == REFUSED in SessionFormation : "
 				+ idSessionFormation + " deleted");
 	}
 }

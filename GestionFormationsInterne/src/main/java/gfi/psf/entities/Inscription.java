@@ -10,10 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "id_session_formation",
+		"id_collaborateur" }))
 public class Inscription implements Serializable {
 
 	private static final long serialVersionUID = 8596277452265934983L;
@@ -25,11 +29,11 @@ public class Inscription implements Serializable {
 	private EtatInscription etat;
 	private String motifDuRefus;
 	@ManyToOne
-	@JoinColumn(name = "id_session_formation")
+	@JoinColumn(name = "id_session_formation", nullable = false)
 	@JsonBackReference
 	private SessionFormation sessionFormation;
 	@ManyToOne
-	@JoinColumn(name = "id_collaborateur")
+	@JoinColumn(name = "id_collaborateur", nullable = false)
 	@JsonBackReference
 	public Utilisateur collaborateur;
 
