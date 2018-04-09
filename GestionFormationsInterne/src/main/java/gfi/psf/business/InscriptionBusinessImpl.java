@@ -34,15 +34,17 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 	public void inscrireCollaborateursSessionFormation(List<Integer> listIdCollaborateur,
 			Integer idSessionFormation) {
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(idSessionFormation);
+		int i = 0;
 		for (Integer idCollaborateur : listIdCollaborateur) {
 			Utilisateur collaborateur = utilisateurRepository.findOne(idCollaborateur);
 			if (collaborateur.isActif()) {
 				inscriptionRepository.save(new Inscription(EtatInscription.INVITED,
 						sessionFormation, new Utilisateur(idCollaborateur)));
 				envoyerEmailCollaborateur(sessionFormation, collaborateur);
+				i++;
 			}
 		}
-		logger.info("Collaborateurs saved in Inscription and invited");
+		logger.info(i + " Collaborateurs saved in Inscription and invited");
 	}
 
 	private void envoyerEmailCollaborateur(SessionFormation sessionFormation,
@@ -73,7 +75,7 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 		Inscription inscription = inscriptionRepository.findOne(idInscription);
 		inscription.setEtat(EtatInscription.CONFIRMED);
 		inscriptionRepository.save(inscription);
-		logger.info("Inscription confirmed : " + inscription.getId());
+		logger.info("idInscription confirmed : " + inscription.getId());
 	}
 
 	public void refuserInscriptionSessionFormation(Integer idInscription, String motifDuRefus) {
@@ -81,12 +83,12 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 		inscription.setEtat(EtatInscription.REFUSED);
 		inscription.setMotifDuRefus(motifDuRefus);
 		inscriptionRepository.save(inscription);
-		logger.info("Inscription refused : " + inscription.getId());
+		logger.info("idInscription refused : " + inscription.getId());
 	}
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {
 		inscriptionRepository.deleteInscriptionsCollaborateurs(idSessionFormation);
-		logger.info("Collaborateurs with EtatInscription == REFUSED in SessionFormation : "
-				+ idSessionFormation + " deleted");
+		logger.info("Collaborateurs who refused the invitation of the idSessionFormation : "
+				+ idSessionFormation + " in the table Inscription deleted");
 	}
 }

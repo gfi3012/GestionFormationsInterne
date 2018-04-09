@@ -127,7 +127,8 @@ public class SessionFormation implements Serializable {
 	@Override
 	public String toString() {
 		return "SessionFormation [id=" + id + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
-				+ ", nbrPlaces=" + nbrPlaces + ", lieu=" + lieu + "]";
+				+ ", nbrPlaces=" + nbrPlaces + ", lieu=" + lieu + ", idFormation="
+				+ formation.getId() + "]";
 	}
 
 }

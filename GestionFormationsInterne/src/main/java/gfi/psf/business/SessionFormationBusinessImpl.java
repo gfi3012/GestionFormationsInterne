@@ -29,7 +29,7 @@ public class SessionFormationBusinessImpl implements SessionFormationBusiness {
 		SessionFormation sessionFormation = sessionFormationRepository.findOne(idSessionFormation);
 		sessionFormation.setFormateur(new Utilisateur(idFormateur));
 		sessionFormationRepository.save(sessionFormation);
-		logger.info("Formateur affected : " + idFormateur + " to SessionFormation : "
+		logger.info("idFormateur affected : " + idFormateur + " to idSessionFormation : "
 				+ idSessionFormation);
 	}
 
