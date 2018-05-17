@@ -1,4 +1,4 @@
-package gfi.psf.services;
+package gfi.psf.controller;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin("*")
-public class InscriptionService {
+public class InscriptionRestController {
 
 	@Autowired
 	private InscriptionBusiness inscriptionBusiness;

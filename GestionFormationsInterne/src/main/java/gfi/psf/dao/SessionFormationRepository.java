@@ -1,6 +1,6 @@
 package gfi.psf.dao;
 
-import gfi.psf.entities.SessionFormation;
+import gfi.psf.model.SessionFormation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

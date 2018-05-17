@@ -1,10 +1,10 @@
 package gfi.psf.business;
 
-import gfi.psf.entities.SessionFormation;
+import gfi.psf.model.SessionFormation;
 
 public interface SessionFormationBusiness {
 
-	public void creerSessionFormation(SessionFormation sessionFormation);
+	public SessionFormation creerSessionFormation(SessionFormation sessionFormation);
 
 	public void affecterFormateurSessionFormation(Integer idFormateur, Integer idSessionFormation);
 }

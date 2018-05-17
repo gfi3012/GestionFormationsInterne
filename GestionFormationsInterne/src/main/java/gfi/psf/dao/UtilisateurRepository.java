@@ -1,6 +1,6 @@
 package gfi.psf.dao;
 
-import gfi.psf.entities.Utilisateur;
+import gfi.psf.model.Utilisateur;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

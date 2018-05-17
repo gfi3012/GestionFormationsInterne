@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gfi.psf.dao.SessionFormationRepository;
-import gfi.psf.entities.SessionFormation;
-import gfi.psf.entities.Utilisateur;
+import gfi.psf.model.SessionFormation;
+import gfi.psf.model.Utilisateur;
 
 @Service
 @Transactional
@@ -20,9 +20,10 @@ public class SessionFormationBusinessImpl implements SessionFormationBusiness {
 	@Autowired
 	private SessionFormationRepository sessionFormationRepository;
 
-	public void creerSessionFormation(SessionFormation sessionFormation) {
+	public SessionFormation creerSessionFormation(SessionFormation sessionFormation) {
 		sessionFormationRepository.save(sessionFormation);
 		logger.info("SessionFormation saved : " + sessionFormation);
+		return sessionFormation;
 	}
 
 	public void affecterFormateurSessionFormation(Integer idFormateur, Integer idSessionFormation) {

@@ -1,4 +1,4 @@
-package gfi.psf.entities;
+package gfi.psf.model;
 
 import java.io.Serializable;
 
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -20,21 +22,25 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 		"id_collaborateur" }))
 public class Inscription implements Serializable {
 
-	private static final long serialVersionUID = 8596277452265934983L;
+	private static final long serialVersionUID = -2996587022199250314L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	@Enumerated(EnumType.STRING)
 	@Column(length = 9)
+	@NotNull
 	private EtatInscription etat;
+	@Size(min = 3)
 	private String motifDuRefus;
+
 	@ManyToOne
 	@JoinColumn(name = "id_session_formation", nullable = false)
-	@JsonBackReference
+	@JsonBackReference(value = "sessionFormation-inscriptions")
 	private SessionFormation sessionFormation;
+
 	@ManyToOne
 	@JoinColumn(name = "id_collaborateur", nullable = false)
-	@JsonBackReference
 	public Utilisateur collaborateur;
 
 	public Integer getId() {

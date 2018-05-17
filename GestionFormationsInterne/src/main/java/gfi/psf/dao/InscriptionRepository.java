@@ -1,6 +1,6 @@
 package gfi.psf.dao;
 
-import gfi.psf.entities.Inscription;
+import gfi.psf.model.Inscription;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +12,6 @@ public interface InscriptionRepository extends JpaRepository<Inscription, Intege
 
 	@Transactional
 	@Modifying
-	@Query("delete from Inscription i where i.sessionFormation.id=:x and i.etat=gfi.psf.entities.EtatInscription.REFUSED")
-	public void deleteInscriptionsCollaborateurs(@Param("x") Integer idSession);
+	@Query("delete from Inscription i where i.sessionFormation.id=:id and i.etat=gfi.psf.model.EtatInscription.REFUSED")
+	public void deleteInscriptionsCollaborateurs(@Param("id") Integer idSession);
 }

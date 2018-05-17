@@ -2,7 +2,8 @@ package gfi.psf.dao;
 
 import java.util.List;
 
-import gfi.psf.entities.Formation;
+import gfi.psf.model.Formation;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -9,8 +9,8 @@ import java.util.List;
 import gfi.psf.business.SessionFormationBusiness;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
-import gfi.psf.entities.Formation;
-import gfi.psf.entities.SessionFormation;
+import gfi.psf.model.Formation;
+import gfi.psf.model.SessionFormation;
 
 import org.junit.Ignore;
 import org.junit.Test;

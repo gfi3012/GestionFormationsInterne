@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import gfi.psf.entities.Inscription;
+import gfi.psf.model.Inscription;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

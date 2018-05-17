@@ -1,4 +1,4 @@
-package gfi.psf.entities;
+package gfi.psf.model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -8,25 +8,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@JsonIgnoreProperties("sessionsFormation")
 public class Formation implements Serializable {
 
-	private static final long serialVersionUID = 4256247425885221543L;
+	private static final long serialVersionUID = -6646282979702556229L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	@Column(length = 100)
+	@NotNull
+	@Size(min = 3)
 	private String nom;
+	@Size(min = 3)
 	private String domaine;
+	@NotNull
+	@Size(min = 3)
 	private String objectif;
+	@Min(value = 0)
 	private double budget;
+
 	@OneToMany(mappedBy = "formation")
-	@JsonManagedReference
+	@JsonManagedReference(value = "formation-sessionsFormation")
 	private Collection<SessionFormation> sessionsFormation;
 
 	public Integer getId() {

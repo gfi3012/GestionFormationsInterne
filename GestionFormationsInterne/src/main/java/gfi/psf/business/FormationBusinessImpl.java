@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import gfi.psf.dao.FormationRepository;
-import gfi.psf.entities.Formation;
+import gfi.psf.model.Formation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +21,10 @@ public class FormationBusinessImpl implements FormationBusiness {
 	@Autowired
 	private FormationRepository formationRepository;
 
-	public void creerFormation(Formation formation) {
+	public Formation creerFormation(Formation formation) {
 		formationRepository.save(formation);
 		logger.info("Formation saved : " + formation);
+		return formation;
 	}
 
 	public void modifierFormation(Formation formation) {

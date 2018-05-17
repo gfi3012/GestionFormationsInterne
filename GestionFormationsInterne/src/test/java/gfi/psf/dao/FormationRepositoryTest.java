@@ -2,7 +2,7 @@ package gfi.psf.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import gfi.psf.entities.Formation;
+import gfi.psf.model.Formation;
 
 import java.util.List;
 

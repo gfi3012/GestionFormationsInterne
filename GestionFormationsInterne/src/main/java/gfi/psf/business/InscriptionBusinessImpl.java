@@ -3,10 +3,10 @@ package gfi.psf.business;
 import gfi.psf.dao.InscriptionRepository;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
-import gfi.psf.entities.EtatInscription;
-import gfi.psf.entities.Inscription;
-import gfi.psf.entities.SessionFormation;
-import gfi.psf.entities.Utilisateur;
+import gfi.psf.model.EtatInscription;
+import gfi.psf.model.Inscription;
+import gfi.psf.model.SessionFormation;
+import gfi.psf.model.Utilisateur;
 
 import java.util.List;
 

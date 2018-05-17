@@ -1,4 +1,4 @@
-package gfi.psf.entities;
+package gfi.psf.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,29 +9,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Utilisateur implements Serializable {
 
-	private static final long serialVersionUID = 1281027658459526723L;
+	private static final long serialVersionUID = 4966506789826852562L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	@Column(length = 40, unique = true)
+	@NotNull
+	@Size(min = 3)
 	private String cin;
 	@Column(length = 40)
+	@NotNull
+	@Size(min = 3)
 	private String nom;
 	@Column(length = 40)
+	@NotNull
+	@Size(min = 3)
 	private String prenom;
 	@Column(length = 40)
+	@Size(min = 3)
 	private String email;
 	@Temporal(TemporalType.DATE)
+	@Past
 	private Date dateDeNaissance;
 	@Temporal(TemporalType.DATE)
 	private Date dateEntree;
-	@Column(length = 40)
+	@Column(length = 40, unique = true)
+	@NotNull
+	@Size(min = 3)
 	private String identifiant;
 	@Column(length = 40)
+	@NotNull
+	@Size(min = 3)
 	private String motDePasse;
 	private boolean actif;
 

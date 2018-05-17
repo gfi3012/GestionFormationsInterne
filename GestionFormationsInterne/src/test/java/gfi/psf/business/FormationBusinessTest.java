@@ -7,7 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 
 import gfi.psf.dao.FormationRepository;
-import gfi.psf.entities.Formation;
+import gfi.psf.model.Formation;
 import gfi.psf.business.FormationBusiness;
 
 import org.junit.Ignore;

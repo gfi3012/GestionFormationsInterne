@@ -1,4 +1,4 @@
-package gfi.psf.entities;
+package gfi.psf.model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -14,33 +14,45 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@JsonIgnoreProperties("inscriptions")
 public class SessionFormation implements Serializable {
 
-	private static final long serialVersionUID = 1340621921964384427L;
+	private static final long serialVersionUID = -7280221572134573814L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	@Temporal(TemporalType.DATE)
+	@NotNull
+	@Future
 	private Date dateDebut;
 	@Temporal(TemporalType.DATE)
+	@NotNull
+	@Future
 	private Date dateFin;
+	@Min(value = 1)
 	private int nbrPlaces;
 	@Column(length = 170)
+	@Size(min = 3)
 	private String lieu;
+
 	@ManyToOne
 	@JoinColumn(name = "id_formation", nullable = false)
-	@JsonBackReference
+	@JsonBackReference(value = "formation-sessionsFormation")
 	private Formation formation;
+
 	@OneToMany(mappedBy = "sessionFormation")
-	@JsonManagedReference
+	@JsonManagedReference(value = "sessionFormation-inscriptions")
 	public Collection<Inscription> inscriptions;
+
 	@OneToOne
 	@JoinColumn(name = "id_formateur")
 	public Utilisateur formateur;

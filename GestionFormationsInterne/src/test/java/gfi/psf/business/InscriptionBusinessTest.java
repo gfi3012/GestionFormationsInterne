@@ -10,8 +10,8 @@ import gfi.psf.business.InscriptionBusiness;
 import gfi.psf.dao.InscriptionRepository;
 import gfi.psf.dao.SessionFormationRepository;
 import gfi.psf.dao.UtilisateurRepository;
-import gfi.psf.entities.EtatInscription;
-import gfi.psf.entities.Inscription;
+import gfi.psf.model.EtatInscription;
+import gfi.psf.model.Inscription;
 
 import org.junit.Ignore;
 import org.junit.Test;
