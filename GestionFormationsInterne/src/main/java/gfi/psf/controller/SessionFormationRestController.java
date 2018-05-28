@@ -1,6 +1,7 @@
 package gfi.psf.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -10,6 +11,8 @@ import gfi.psf.model.SessionFormation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,6 +38,31 @@ public class SessionFormationRestController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(sessionFormationAdded.getId()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+
+	@PutMapping("/sessionsformation/{idSessionFormation}")
+	public void modifierSessionFormation(@PathVariable Integer idSessionFormation,
+			@Valid @RequestBody SessionFormation sessionFormation) {
+		sessionFormation.setId(idSessionFormation);
+		sessionFormationBusiness.modifierSessionFormation(sessionFormation);
+	}
+
+	@DeleteMapping("/sessionsformation/{idSessionFormation}")
+	public void supprimerSessionFormation(@PathVariable Integer idSessionFormation) {
+		sessionFormationBusiness.supprimerSessionFormation(idSessionFormation);
+	}
+
+	@GetMapping("/sessionsformation/formation/{idFormation}")
+	public List<SessionFormation> chercherSessionsFormationParIdFormation(
+			@PathVariable Integer idFormation) {
+		return sessionFormationBusiness.chercherSessionsFormationParIdFormation(idFormation);
+	}
+
+	@GetMapping("/sessionsformation/formation/{idFormation}/datedebut/{dateDebut}")
+	public List<SessionFormation> chercherSessionsFormationParIdFormationEtDateDebut(
+			@PathVariable Integer idFormation, @PathVariable String dateDebut) {
+		return sessionFormationBusiness.chercherSessionsFormationParIdFormationEtDateDebut(
+				idFormation, dateDebut);
 	}
 
 	@PutMapping("/sessionsformation/{idSessionFormation}/formateur/{idFormateur}/affecter-formateur")

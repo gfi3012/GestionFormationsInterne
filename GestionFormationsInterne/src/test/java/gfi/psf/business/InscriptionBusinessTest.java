@@ -2,14 +2,13 @@ package gfi.psf.business;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import gfi.psf.business.InscriptionBusiness;
 import gfi.psf.dao.InscriptionRepository;
-import gfi.psf.dao.SessionFormationRepository;
-import gfi.psf.dao.UtilisateurRepository;
 import gfi.psf.model.EtatInscription;
 import gfi.psf.model.Inscription;
 
@@ -28,49 +27,57 @@ public class InscriptionBusinessTest {
 	private InscriptionBusiness inscriptionBusiness;
 	@Autowired
 	private InscriptionRepository inscriptionRepository;
-	@Autowired
-	private SessionFormationRepository sessionFormationRepository;
-	@Autowired
-	private UtilisateurRepository utilisateurRepository;
 
 	@Test
 	public void testInscrireCollaborateursSessionFormation() {
-		List<Integer> listIdUtilisateur = new ArrayList<Integer>(2);
-		listIdUtilisateur.add(new Integer(1));
-		listIdUtilisateur.add(new Integer(2));
-		List<Inscription> listInscription1 = inscriptionRepository.findAll();
-		inscriptionBusiness.inscrireCollaborateursSessionFormation(listIdUtilisateur,
-				new Integer(1));
-		List<Inscription> listInscription2 = inscriptionRepository.findAll();
-		assertEquals(listInscription1.size() + 2, listInscription2.size());
-		Inscription inscription = inscriptionRepository.findOne(new Integer(1));
-		assertNotNull(inscription);
-		assertEquals(EtatInscription.INVITED, inscription.getEtat());
-		inscription = inscriptionRepository.findOne(new Integer(2));
+		List<Integer> listIdUtilisateur = new ArrayList<Integer>(7);
+		for (int i = 1; i < 8; i++)
+			listIdUtilisateur.add(i);
+		int size1 = inscriptionRepository.findAll().size();
+		inscriptionBusiness.inscrireCollaborateursSessionFormation(listIdUtilisateur, 1);
+		int size2 = inscriptionRepository.findAll().size();
+		assertEquals(size1 + 6, size2);
+		Inscription inscription = inscriptionRepository.findOne(1);
 		assertNotNull(inscription);
 		assertEquals(EtatInscription.INVITED, inscription.getEtat());
 	}
 
 	@Ignore
+	public void testChercherInscriptionsParIdSessionFormation() {
+		List<Inscription> inscriptions = inscriptionBusiness
+				.chercherInscriptionsParIdSessionFormation(1);
+		assertNotNull(inscriptions);
+		assertTrue(inscriptions.size() <= 5);
+	}
+
+	@Ignore
 	public void testConfirmerInscriptionSessionFormation() {
-		inscriptionBusiness.confirmerInscriptionSessionFormation(1);
-		Inscription inscription = inscriptionRepository.findOne(new Integer(1));
+		inscriptionBusiness.confirmerInscriptionSessionFormation(4);
+		Inscription inscription = inscriptionRepository.findOne(4);
 		assertEquals(EtatInscription.CONFIRMED, inscription.getEtat());
 	}
 
 	@Ignore
 	public void testRefuserInscriptionSessionFormation() {
-		inscriptionBusiness.refuserInscriptionSessionFormation(2, "motifs");
-		Inscription inscription = inscriptionRepository.findOne(new Integer(2));
+		inscriptionBusiness.refuserInscriptionSessionFormation(6, "motifs");
+		Inscription inscription = inscriptionRepository.findOne(6);
 		assertEquals(EtatInscription.REFUSED, inscription.getEtat());
 		assertEquals("motifs", inscription.getMotifDuRefus());
 	}
 
 	@Ignore
+	public void testSupprimerInscriptionCollaborateur() {
+		int size1 = inscriptionRepository.findAll().size();
+		inscriptionBusiness.supprimerInscriptionCollaborateur(2);
+		int size2 = inscriptionRepository.findAll().size();
+		assertEquals(size1 - 1, size2);
+	}
+
+	@Ignore
 	public void testSupprimerCollaborateursNonFormes() {
-		List<Inscription> listInscriptions1 = inscriptionRepository.findAll();
+		int size1 = inscriptionRepository.findAll().size();
 		inscriptionBusiness.supprimerCollaborateursNonFormes(1);
-		List<Inscription> listInscriptions2 = inscriptionRepository.findAll();
-		assertEquals(listInscriptions1.size() - 1, listInscriptions2.size());
+		int size2 = inscriptionRepository.findAll().size();
+		assertEquals(size1 - 1, size2);
 	}
 }

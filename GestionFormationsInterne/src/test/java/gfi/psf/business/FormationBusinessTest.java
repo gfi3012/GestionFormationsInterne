@@ -28,34 +28,58 @@ public class FormationBusinessTest {
 
 	@Test
 	public void testCreerFormation() {
-		List<Formation> listFormations1 = formationRepository.findAllFormations();
+		int size1 = formationRepository.findAll().size();
 		formationBusiness.creerFormation(new Formation("nomC", "domaineC", "objectifC", 5000));
 		formationBusiness.creerFormation(new Formation("nomA", "domaineA", "objectifA", 6000));
-		formationBusiness.creerFormation(new Formation("nomB", "domaineB", "objectifB", 35000));
-		List<Formation> listFormations2 = formationRepository.findAllFormations();
-		assertEquals(listFormations1.size() + 3, listFormations2.size());
+		formationBusiness.creerFormation(new Formation("nomF", "domaineF", "objectifF", 13000));
+		formationBusiness.creerFormation(new Formation("nomB", "domaineB", "objectifB", 25000));
+		formationBusiness.creerFormation(new Formation("nomE", "domaineE", "objectifE", 1000));
+		formationBusiness.creerFormation(new Formation("nomD", "domaineD", "objectifD", 3000));
+		formationBusiness.creerFormation(new Formation("opc", "domaineK", "objectifK", 5500));
+		formationBusiness.creerFormation(new Formation("yopq", "domaineL", "objectifL", 46000));
+		formationBusiness.creerFormation(new Formation("ropf", "domaineM", "objectifM", 43000));
+		formationBusiness.creerFormation(new Formation("opa", "domaineN", "objectifN", 24000));
+		formationBusiness.creerFormation(new Formation("top", "domaineO", "objectifO", 4000));
+		formationBusiness.creerFormation(new Formation("pop", "domaineP", "objectifP", 3400));
+		int size2 = formationRepository.findAll().size();
+		assertEquals(size1 + 12, size2);
 	}
 
 	@Ignore
 	public void testModifierFormation() {
-		Formation formation = formationRepository.findOne(new Integer(1));
-		formation.setNom("nomD");
-		formation.setDomaine("domaineD");
-		formation.setObjectif("objectifD");
+		Formation formation = formationRepository.findOne(1);
+		formation.setNom("nomJ");
+		formation.setDomaine("domaineJ");
+		formation.setObjectif("objectifJ");
 		formation.setBudget(8000);
 		formationBusiness.modifierFormation(formation);
-		formation = formationRepository.findOne(new Integer(1));
-		assertEquals("nomD", formation.getNom());
-		assertEquals("domaineD", formation.getDomaine());
-		assertEquals("objectifD", formation.getObjectif());
+		formation = formationRepository.findOne(1);
+		assertEquals("nomJ", formation.getNom());
+		assertEquals("domaineJ", formation.getDomaine());
+		assertEquals("objectifJ", formation.getObjectif());
 		assertTrue(8000 == formation.getBudget());
 	}
 
 	@Ignore
-	public void testListerFormations() {
-		List<Formation> formations = formationBusiness.listerFormations();
+	public void testSupprimerFormation() {
+		int size1 = formationRepository.findAll().size();
+		formationBusiness.supprimerFormation(3);
+		int size2 = formationRepository.findAll().size();
+		assertEquals(size1 - 1, size2);
+	}
+
+	@Ignore
+	public void testChercherFormationsParNom() {
+		List<Formation> formations = formationBusiness.chercherFormationsParNom("%op%");
 		assertNotNull(formations);
-		assertEquals(3, formations.size());
+		assertTrue(formations.size() <= 5);
+	}
+
+	@Ignore
+	public void testChercherTop5Formations() {
+		List<Formation> formations = formationBusiness.chercherTop5Formations();
+		assertNotNull(formations);
+		assertTrue(formations.size() <= 5);
 	}
 
 }

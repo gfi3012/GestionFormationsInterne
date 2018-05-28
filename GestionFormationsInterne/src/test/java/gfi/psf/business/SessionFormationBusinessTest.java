@@ -3,12 +3,10 @@ package gfi.psf.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Calendar;
 
 import gfi.psf.business.SessionFormationBusiness;
 import gfi.psf.dao.SessionFormationRepository;
-import gfi.psf.dao.UtilisateurRepository;
 import gfi.psf.model.Formation;
 import gfi.psf.model.SessionFormation;
 
@@ -27,26 +25,25 @@ public class SessionFormationBusinessTest {
 	private SessionFormationBusiness sessionFormationBusiness;
 	@Autowired
 	private SessionFormationRepository sessionFormationRepository;
-	@Autowired
-	private UtilisateurRepository utilisateurRepository;
 
 	@Test
 	public void testCreerSessionFormation() {
-		List<SessionFormation> listSessionFormation1 = sessionFormationRepository.findAll();
-		sessionFormationBusiness.creerSessionFormation(new SessionFormation(new Date(), new Date(),
-				20, "lieu1",new Formation(new Integer(1))));
-		sessionFormationBusiness.creerSessionFormation(new SessionFormation(new Date(), new Date(),
-				10, "lieu2",new Formation(new Integer(2))));
-		List<SessionFormation> listSessionFormation2 = sessionFormationRepository.findAll();
-		assertEquals(listSessionFormation1.size() + 2, listSessionFormation2.size());
+		int size1 = sessionFormationRepository.findAll().size();
+		Calendar cal = Calendar.getInstance();
+		for (int i = 1; i < 7; i++) {
+			cal.add(Calendar.MONTH, 1);
+			sessionFormationBusiness.creerSessionFormation(new SessionFormation(cal.getTime(), cal
+					.getTime(), i * 10, "lieu" + i, new Formation(1)));
+		}
+		int size2 = sessionFormationRepository.findAll().size();
+		assertEquals(size1 + 6, size2);
 	}
 
 	@Ignore
 	public void testAffecterFormateurSessionFormation() {
-		sessionFormationBusiness.affecterFormateurSessionFormation(new Integer(2), new Integer(1));
-		SessionFormation sessionFormation = sessionFormationRepository.findOne(new Integer(1));
+		sessionFormationBusiness.affecterFormateurSessionFormation(2, 1);
+		SessionFormation sessionFormation = sessionFormationRepository.findOne(1);
 		assertNotNull(sessionFormation.getFormateur());
 		assertEquals(new Integer(2), sessionFormation.getFormateur().getId());
 	}
-
 }

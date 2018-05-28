@@ -39,12 +39,12 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 			Utilisateur collaborateur = utilisateurRepository.findOne(idCollaborateur);
 			if (collaborateur.isActif()) {
 				inscriptionRepository.save(new Inscription(EtatInscription.INVITED,
-						sessionFormation, new Utilisateur(idCollaborateur)));
+						sessionFormation, collaborateur));
 				envoyerEmailCollaborateur(sessionFormation, collaborateur);
 				i++;
 			}
 		}
-		logger.info(i + " Collaborateurs saved in Inscription and invited");
+		logger.info(i + " Collaborateurs invited");
 	}
 
 	private void envoyerEmailCollaborateur(SessionFormation sessionFormation,
@@ -71,6 +71,13 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 		emailSender.sendMessage(collaborateur.getEmail(), subject, text);
 	}
 
+	public List<Inscription> chercherInscriptionsParIdSessionFormation(Integer idSessionFormation) {
+		List<Inscription> listInscription = inscriptionRepository
+				.findTop5BySessionFormationOrderByEtat(new SessionFormation(idSessionFormation));
+		logger.info("listInscription size : " + listInscription.size());
+		return listInscription;
+	}
+
 	public void confirmerInscriptionSessionFormation(Integer idInscription) {
 		Inscription inscription = inscriptionRepository.findOne(idInscription);
 		inscription.setEtat(EtatInscription.CONFIRMED);
@@ -86,8 +93,14 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 		logger.info("idInscription refused : " + inscription.getId());
 	}
 
+	public void supprimerInscriptionCollaborateur(Integer idInscription) {
+		inscriptionRepository.delete(idInscription);
+		logger.info("idInscription : " + idInscription + " deleted");
+	}
+
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {
-		inscriptionRepository.deleteInscriptionsCollaborateurs(idSessionFormation);
+		inscriptionRepository.deleteBySessionFormationAndEtat(new SessionFormation(
+				idSessionFormation), EtatInscription.REFUSED);
 		logger.info("Collaborateurs who refused the invitation of the idSessionFormation : "
 				+ idSessionFormation + " in the table Inscription deleted");
 	}

@@ -32,8 +32,20 @@ public class FormationBusinessImpl implements FormationBusiness {
 		logger.info("Formation modified : " + formation);
 	}
 
-	public List<Formation> listerFormations() {
-		List<Formation> listFormation = formationRepository.findAllFormations();
+	public void supprimerFormation(Integer idFormation) {
+		logger.info("idFormation to remove : " + idFormation);
+		formationRepository.delete(idFormation);
+	}
+
+	public List<Formation> chercherFormationsParNom(String nomFormation) {
+		List<Formation> listFormation = formationRepository
+				.findTop5ByNomLikeOrderByNom(nomFormation);
+		logger.info("listFormation size : " + listFormation.size());
+		return listFormation;
+	}
+
+	public List<Formation> chercherTop5Formations() {
+		List<Formation> listFormation = formationRepository.findTop5ByOrderByNom();
 		logger.info("listFormation size : " + listFormation.size());
 		return listFormation;
 	}

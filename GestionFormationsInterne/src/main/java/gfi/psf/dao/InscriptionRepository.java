@@ -1,17 +1,19 @@
 package gfi.psf.dao;
 
+import java.util.List;
+
+import gfi.psf.model.EtatInscription;
 import gfi.psf.model.Inscription;
+import gfi.psf.model.SessionFormation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface InscriptionRepository extends JpaRepository<Inscription, Integer> {
 
+	public List<Inscription> findTop5BySessionFormationOrderByEtat(SessionFormation sessionFormation);
+
 	@Transactional
-	@Modifying
-	@Query("delete from Inscription i where i.sessionFormation.id=:id and i.etat=gfi.psf.model.EtatInscription.REFUSED")
-	public void deleteInscriptionsCollaborateurs(@Param("id") Integer idSession);
+	public void deleteBySessionFormationAndEtat(SessionFormation sessionFormation,
+			EtatInscription etat);
 }

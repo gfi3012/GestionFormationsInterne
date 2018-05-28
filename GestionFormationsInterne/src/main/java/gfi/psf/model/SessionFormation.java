@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class SessionFormation implements Serializable {
 
-	private static final long serialVersionUID = -7280221572134573814L;
-
+	private static final long serialVersionUID = -5881539349709697170L;
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -124,6 +124,11 @@ public class SessionFormation implements Serializable {
 	public SessionFormation() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public SessionFormation(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public SessionFormation(Date dateDebut, Date dateFin, int nbrPlaces, String lieu,
