@@ -3,6 +3,7 @@ package gfi.psf.model;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,17 +25,16 @@ public class Formation implements Serializable {
 	private Integer id;
 	@Column(length = 100)
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String nom;
-	@Size(min = 3)
 	private String domaine;
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String objectif;
 	@Min(value = 0)
 	private double budget;
 
-	@OneToMany(mappedBy = "formation")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "formation")
 	@JsonManagedReference(value = "formation-sessionsFormation")
 	private Collection<SessionFormation> sessionsFormation;
 

@@ -37,7 +37,7 @@ public class SessionFormationBusinessImpl implements SessionFormationBusiness {
 	}
 
 	public void supprimerSessionFormation(Integer idSessionFormation) {
-		logger.info("idSessionFormation to remove : " + idSessionFormation);
+		logger.info("idSessionFormation deleted : " + idSessionFormation);
 		sessionFormationRepository.delete(idSessionFormation);
 	}
 

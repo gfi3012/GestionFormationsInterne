@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class SessionFormation implements Serializable {
 
 	private static final long serialVersionUID = -5881539349709697170L;
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -41,7 +41,6 @@ public class SessionFormation implements Serializable {
 	@Min(value = 1)
 	private int nbrPlaces;
 	@Column(length = 170)
-	@Size(min = 3)
 	private String lieu;
 
 	@ManyToOne
@@ -49,7 +48,7 @@ public class SessionFormation implements Serializable {
 	@JsonBackReference(value = "formation-sessionsFormation")
 	private Formation formation;
 
-	@OneToMany(mappedBy = "sessionFormation")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "sessionFormation")
 	@JsonManagedReference(value = "sessionFormation-inscriptions")
 	public Collection<Inscription> inscriptions;
 

@@ -33,7 +33,7 @@ public class FormationBusinessImpl implements FormationBusiness {
 	}
 
 	public void supprimerFormation(Integer idFormation) {
-		logger.info("idFormation to remove : " + idFormation);
+		logger.info("idFormation deleted : " + idFormation);
 		formationRepository.delete(idFormation);
 	}
 

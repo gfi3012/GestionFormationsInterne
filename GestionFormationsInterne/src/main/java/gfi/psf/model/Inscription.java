@@ -31,7 +31,7 @@ public class Inscription implements Serializable {
 	@Column(length = 9)
 	@NotNull
 	private EtatInscription etat;
-	@Size(min = 3)
+	@Size(min = 1)
 	private String motifDuRefus;
 
 	@ManyToOne

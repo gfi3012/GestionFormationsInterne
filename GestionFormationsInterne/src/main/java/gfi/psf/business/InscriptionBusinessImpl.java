@@ -95,7 +95,7 @@ public class InscriptionBusinessImpl implements InscriptionBusiness {
 
 	public void supprimerInscriptionCollaborateur(Integer idInscription) {
 		inscriptionRepository.delete(idInscription);
-		logger.info("idInscription : " + idInscription + " deleted");
+		logger.info("idInscription deleted : " + idInscription);
 	}
 
 	public void supprimerCollaborateursNonFormes(Integer idSessionFormation) {

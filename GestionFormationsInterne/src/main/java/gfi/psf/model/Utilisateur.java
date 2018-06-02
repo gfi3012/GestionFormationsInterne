@@ -23,18 +23,17 @@ public class Utilisateur implements Serializable {
 	private Integer id;
 	@Column(length = 40, unique = true)
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String cin;
 	@Column(length = 40)
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String nom;
 	@Column(length = 40)
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String prenom;
 	@Column(length = 40)
-	@Size(min = 3)
 	private String email;
 	@Temporal(TemporalType.DATE)
 	@Past
@@ -43,11 +42,11 @@ public class Utilisateur implements Serializable {
 	private Date dateEntree;
 	@Column(length = 40, unique = true)
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String identifiant;
 	@Column(length = 40)
 	@NotNull
-	@Size(min = 3)
+	@Size(min = 1)
 	private String motDePasse;
 	private boolean actif;
 
