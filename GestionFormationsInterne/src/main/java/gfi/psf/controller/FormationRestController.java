@@ -50,7 +50,12 @@ public class FormationRestController {
 		formationBusiness.supprimerFormation(idFormation);
 	}
 
-	@GetMapping("/formations/{nomFormation}")
+	@GetMapping("/formations/{idFormation}")
+	public Formation chercherFormationParId(@PathVariable Integer idFormation) {
+		return formationBusiness.chercherFormationParId(idFormation);
+	}
+	
+	@GetMapping("/formations/nom/{nomFormation}")
 	public List<Formation> chercherFormationsParNom(@PathVariable String nomFormation) {
 		return formationBusiness.chercherFormationsParNom("%" + nomFormation + "%");
 	}

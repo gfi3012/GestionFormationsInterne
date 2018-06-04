@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 		"id_collaborateur" }))
 public class Inscription implements Serializable {
 
-	private static final long serialVersionUID = -2996587022199250314L;
-
+	private static final long serialVersionUID = 4837113087759614721L;
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -41,7 +41,7 @@ public class Inscription implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "id_collaborateur", nullable = false)
-	public Utilisateur collaborateur;
+	private Utilisateur collaborateur;
 
 	public Integer getId() {
 		return id;

@@ -12,7 +12,10 @@ public interface FormationBusiness {
 
 	public void supprimerFormation(Integer idFormation);
 
+	public Formation chercherFormationParId(Integer idFormation);
+
 	public List<Formation> chercherFormationsParNom(String nomFormation);
 
 	public List<Formation> chercherTop5Formations();
+
 }

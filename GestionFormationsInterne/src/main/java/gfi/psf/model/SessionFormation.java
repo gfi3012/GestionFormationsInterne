@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class SessionFormation implements Serializable {
 
-	private static final long serialVersionUID = -5881539349709697170L;
+	private static final long serialVersionUID = 1554510083695612318L;
 
 	@Id
 	@GeneratedValue
@@ -50,11 +50,11 @@ public class SessionFormation implements Serializable {
 
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "sessionFormation")
 	@JsonManagedReference(value = "sessionFormation-inscriptions")
-	public Collection<Inscription> inscriptions;
+	private Collection<Inscription> inscriptions;
 
 	@OneToOne
 	@JoinColumn(name = "id_formateur")
-	public Utilisateur formateur;
+	private Utilisateur formateur;
 
 	public Integer getId() {
 		return id;

@@ -37,6 +37,11 @@ public class FormationBusinessImpl implements FormationBusiness {
 		formationRepository.delete(idFormation);
 	}
 
+	public Formation chercherFormationParId(Integer idFormation) {
+		logger.info("idFormation searched : " + idFormation);
+		return formationRepository.findOne(idFormation);
+	}
+
 	public List<Formation> chercherFormationsParNom(String nomFormation) {
 		List<Formation> listFormation = formationRepository
 				.findTop5ByNomLikeOrderByNom(nomFormation);
